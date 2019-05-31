@@ -3,8 +3,10 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var session = require("express-session");
 
+var passport = require("./config/passport");
+
 // PORT
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3001;
 var db = require("./models");
 
 // Creating express app - configuring middleware
@@ -22,10 +24,10 @@ require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
 // 
 
-// port listener
-app.listen(PORT, function() {
-    console.log("eye in the sky. looking at youuuuu - on port " + PORT);
-});
+// // port listener
+// app.listen(PORT, function() {
+//     console.log("eye in the sky. looking at youuuuu - on port " + PORT);
+// });
 
 // listen to and show all activities 
 // sync db and log message to the user on success
