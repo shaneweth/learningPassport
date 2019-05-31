@@ -5,17 +5,22 @@ var session = require("express-session");
 
 // PORT
 var PORT = process.env.PORT || 3000;
+var db = require("./models");
 
 // Creating express app - configuring middleware
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
-
-//GET to test server 
-app.get("/", function(req, res) {
-    res.send("passport test");
-})
+// Calling to use "express-session"
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+//
+// require routes
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
+// 
 
 // port listener
 app.listen(PORT, function() {
